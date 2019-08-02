@@ -1,8 +1,12 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/dist/css/bootstrap.css';
+
+@import "~font-awesome/scss/font-awesome";
+@import "~admin-lte/dist/css/AdminLTE.css";
+@import "~admin-lte/dist/css/skins/skin-blue.css";
