@@ -47,6 +47,16 @@ class ManageCompaniesTest extends FeatureTestCase
     }
 
     /** @test */
+    public function showing_empty_state_when_there_are_no_companies()
+    {
+        $this->actingAsUser();
+
+        $this->visitRoute('companies.index')
+             ->assertNumberOfElements(0, '.lc-company-item')
+             ->seeElement('.lc-empty-state');
+    }
+
+    /** @test */
     function creating_company()
     {
         Carbon::setTestNow('1992-01-11 11:00:00');

@@ -49,6 +49,16 @@ class ManageEmployeesTest extends FeatureTestCase
     }
 
     /** @test */
+    public function showing_empty_state_when_there_are_no_employees()
+    {
+        $this->actingAsUser();
+
+        $this->visitRoute('employees.index')
+             ->assertNumberOfElements(0, '.lc-employee-item')
+             ->seeElement('.lc-empty-state');
+    }
+
+    /** @test */
     function creating_employee()
     {
         Carbon::setTestNow('1992-01-11 11:00:00');
