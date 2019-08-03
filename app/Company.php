@@ -22,4 +22,14 @@ class Company extends Model
 
         $this->update(['logo' => null]);
     }
+
+    function hasEmployees()
+    {
+        return $this->employees()->count() > 0;
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }

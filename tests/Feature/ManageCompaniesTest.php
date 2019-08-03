@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Company;
+use App\Employee;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\FeatureTestCase;
@@ -57,7 +58,7 @@ class ManageCompaniesTest extends FeatureTestCase
              ->type('http://skybase.it', 'website')
              ->press('Save')
              ->seeRouteIs('companies.index')
-             ->seeElement('.lc-flash-message');
+             ->seeElement('.lc-successful-message');
 
         $this->seeInDatabase('companies', [
             'name'       => 'Skybase',
@@ -83,7 +84,7 @@ class ManageCompaniesTest extends FeatureTestCase
              ->type('http://skybase.it', 'website')
              ->press('Save')
              ->seeRouteIs('companies.index')
-             ->seeElement('.lc-flash-message');
+             ->seeElement('.lc-successful-message');
 
         $this->seeInDatabase('companies', [
             'id'         => $company->id,
@@ -105,8 +106,25 @@ class ManageCompaniesTest extends FeatureTestCase
              ->press('Delete')
              ->seeRouteIs('companies.index')
              ->assertNumberOfElements(0, '.lc-company-item')
-             ->seeElement('.lc-flash-message');
+             ->seeElement('.lc-successful-message');
 
         $this->dontSeeInDatabase('companies', ['id' => $company->id]);
+    }
+
+    /** @test */
+    function deleting_company_with_employees()
+    {
+        $company = factory(Company::class)->create();
+        factory(Employee::class)->create(['company_id' => $company->id]);
+        $this->actingAsUser();
+
+        $this->visitRoute('companies.index')
+             ->assertNumberOfElements(1, '.lc-company-item')
+             ->press('Delete')
+             ->seeRouteIs('companies.index')
+             ->assertNumberOfElements(1, '.lc-company-item')
+             ->seeElement('.lc-error-message');
+
+        $this->seeInDatabase('companies', ['id' => $company->id]);
     }
 }

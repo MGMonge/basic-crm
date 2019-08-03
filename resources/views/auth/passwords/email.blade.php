@@ -5,7 +5,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">{{ __('Reset Password') }}</p>
 
-        @include('partials.flash-message')
+        @include('partials.flash-messages')
 
         <form action="{{ route('password.email') }}" method="POST">
             @csrf

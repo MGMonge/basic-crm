@@ -3,6 +3,8 @@
 namespace Tests\Unit\Http\Controllers;
 
 use App\Company;
+use App\Employee;
+use App\Exceptions\CannotDeleteCompany;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -295,5 +297,20 @@ class CompanyControllerTest extends TestCase
 
         $response->assertRedirect(route('companies.index'));
         $this->assertFileNotExists(Storage::path($oldLogo));
+    }
+
+    /** @test */
+    function it_throws_an_exception_when_trying_to_delete_company_with_employees()
+    {
+        $this->withoutExceptionHandling();
+        $company = factory(Company::class)->create();
+        factory(Employee::class)->create(['company_id' => $company->id]);
+        $this->actingAsUser();
+
+        try {
+            $this->delete(route('companies.destroy', $company));
+        } catch (CannotDeleteCompany $exception) {
+            $this->assertDatabaseHas('companies', ['id' => $company->id]);
+        }
     }
 }

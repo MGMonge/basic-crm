@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
             'name'  => 'John Doe',
             'email' => 'admin@admin.com',
         ]);
+
+        $company = factory(\App\Company::class)->create();
     }
 }

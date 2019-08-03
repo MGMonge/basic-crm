@@ -63,7 +63,7 @@ class ManageEmployeesTest extends FeatureTestCase
              ->select($company->id, 'company')
              ->press('Save')
              ->seeRouteIs('employees.index')
-             ->seeElement('.lc-flash-message');
+             ->seeElement('.lc-successful-message');
 
         $this->seeInDatabase('employees', [
             'first_name' => 'Maximiliano',
@@ -96,7 +96,7 @@ class ManageEmployeesTest extends FeatureTestCase
              ->select($company->id, 'company')
              ->press('Save')
              ->seeRouteIs('employees.index')
-             ->seeElement('.lc-flash-message');
+             ->seeElement('.lc-successful-message');
 
         $this->seeInDatabase('employees', [
             'id'         => $employee->id,
@@ -120,7 +120,7 @@ class ManageEmployeesTest extends FeatureTestCase
              ->press('Delete')
              ->seeRouteIs('employees.index')
              ->assertNumberOfElements(0, '.lc-employee-item')
-             ->seeElement('.lc-flash-message');
+             ->seeElement('.lc-successful-message');
 
         $this->dontSeeInDatabase('employees', ['id' => $employee->id]);
     }

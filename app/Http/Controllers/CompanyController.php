@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Exceptions\CannotDeleteCompany;
 use App\Http\Requests\SaveCompanyRequest;
-use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -53,6 +53,10 @@ class CompanyController extends Controller
 
     public function destroy(Company $company)
     {
+        if ($company->hasEmployees()) {
+            throw new CannotDeleteCompany('Only empty companies can be deleted');
+        }
+
         $company->removeLogo();
 
         $company->delete();

@@ -21,12 +21,12 @@
                     <ul class="nav navbar-nav">
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ asset('images/user.jpg') }}" class="user-image" alt="User Image">
+                                <img src="{{ url('images/user.jpg') }}" class="user-image" alt="User Image">
                                 <span class="hidden-xs">{{ auth()->user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
-                                    <img src="{{ asset('images/user.jpg') }}" class="img-circle" alt="User Image">
+                                    <img src="{{ url('images/user.jpg') }}" class="img-circle" alt="User Image">
                                     <p>
                                         {{ auth()->user()->name }}
                                         <small>Member since {{ auth()->user()->created_at->format('M\. Y') }}</small>
@@ -77,7 +77,7 @@
 
             <section class="content">
 
-                @include('partials.flash-message')
+                @include('partials.flash-messages')
 
                 @yield('content')
 
