@@ -14,7 +14,7 @@ class EmployeeControllerTest extends TestCase
     /** @test */
     function required_fields_when_creating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('employees.store'), []);
 
@@ -25,7 +25,7 @@ class EmployeeControllerTest extends TestCase
     /** @test */
     function the_email_should_be_a_valid_email_address_when_creating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('employees.store'), [
             'email' => 'foobar',
@@ -37,7 +37,7 @@ class EmployeeControllerTest extends TestCase
     /** @test */
     function the_company_should_exists_when_creating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('employees.store'), [
             'company' => 123,
@@ -61,7 +61,7 @@ class EmployeeControllerTest extends TestCase
     function storing_an_employee()
     {
         $company = factory(Company::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('employees.store'), [
             'first_name' => 'Maximiliano',
@@ -84,7 +84,7 @@ class EmployeeControllerTest extends TestCase
     /** @test */
     function storing_an_employee_with_minimum_information()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('employees.store'), [
             'first_name' => 'Maximiliano',
@@ -104,7 +104,7 @@ class EmployeeControllerTest extends TestCase
     /** @test */
     function required_fields_when_updating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
         $employee = factory(Employee::class)->create();
 
         $response = $this->put(route('employees.update', $employee), []);
@@ -116,7 +116,7 @@ class EmployeeControllerTest extends TestCase
     /** @test */
     function the_email_should_be_a_valid_email_address_when_updating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
         $employee = factory(Employee::class)->create();
 
         $response = $this->put(route('employees.update', $employee), [
@@ -129,7 +129,7 @@ class EmployeeControllerTest extends TestCase
     /** @test */
     function the_company_should_exists_when_updating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
         $employee = factory(Employee::class)->create();
 
         $response = $this->put(route('employees.update', $employee), [
@@ -157,7 +157,7 @@ class EmployeeControllerTest extends TestCase
     {
         $company  = factory(Company::class)->create();
         $employee = factory(Employee::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->put(route('employees.update', $employee), [
             'first_name' => 'Maximiliano',
@@ -181,7 +181,7 @@ class EmployeeControllerTest extends TestCase
     function updating_an_employee_with_minimum_information()
     {
         $employee = factory(Employee::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->put(route('employees.update', $employee), [
             'first_name' => 'Maximiliano',

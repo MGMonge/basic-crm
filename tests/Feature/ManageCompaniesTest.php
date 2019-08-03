@@ -15,7 +15,7 @@ class ManageCompaniesTest extends FeatureTestCase
     public function listing_companies()
     {
         $companies = factory(Company::class, 2)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('companies.index')
              ->assertNumberOfElements(2, '.lc-company-item')
@@ -30,7 +30,7 @@ class ManageCompaniesTest extends FeatureTestCase
     {
         config()->set('crm.companies.per-page', 3);
         factory(Company::class, 7)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
         $this->visitRoute('companies.index')
              ->assertNumberOfElements(3, '.lc-company-item')
              ->seeInElement('.page-item.active', 1)
@@ -49,7 +49,7 @@ class ManageCompaniesTest extends FeatureTestCase
     function creating_company()
     {
         Carbon::setTestNow('1992-01-11 11:00:00');
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('companies.create')
              ->type('Skybase', 'name')
@@ -72,7 +72,7 @@ class ManageCompaniesTest extends FeatureTestCase
     {
         Carbon::setTestNow('1992-01-11 11:00:00');
         $company = factory(Company::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('companies.edit', $company)
              ->seeInField('name', $company->name)
@@ -98,7 +98,7 @@ class ManageCompaniesTest extends FeatureTestCase
     function deleting_company()
     {
         $company = factory(Company::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('companies.index')
              ->assertNumberOfElements(1, '.lc-company-item')

@@ -13,7 +13,7 @@ class CompanyControllerTest extends TestCase
     /** @test */
     function required_fields_when_creating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('companies.store'), []);
 
@@ -24,7 +24,7 @@ class CompanyControllerTest extends TestCase
     /** @test */
     function the_email_should_be_a_valid_email_address_when_creating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('companies.store'), [
             'email' => 'foobar',
@@ -36,7 +36,7 @@ class CompanyControllerTest extends TestCase
     /** @test */
     function the_webiste_should_a_valid_url_when_creating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('companies.store'), [
             'website' => 'foobar',
@@ -58,7 +58,7 @@ class CompanyControllerTest extends TestCase
     /** @test */
     function storing_a_company()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('companies.store'), [
             'name'    => 'Skybase',
@@ -77,7 +77,7 @@ class CompanyControllerTest extends TestCase
     /** @test */
     function storing_a_company_with_minimum_information()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->post(route('companies.store'), [
             'name' => 'Skybase',
@@ -94,7 +94,7 @@ class CompanyControllerTest extends TestCase
     /** @test */
     function required_fields_when_updating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
         $company = factory(Company::class)->create();
 
         $response = $this->put(route('companies.update', $company), []);
@@ -106,7 +106,7 @@ class CompanyControllerTest extends TestCase
     /** @test */
     function the_email_should_be_a_valid_email_address_when_updating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
         $company = factory(Company::class)->create();
 
         $response = $this->put(route('companies.update', $company), [
@@ -119,7 +119,7 @@ class CompanyControllerTest extends TestCase
     /** @test */
     function the_webiste_should_a_valid_url_when_updating()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
         $company = factory(Company::class)->create();
 
         $response = $this->put(route('companies.update', $company), [
@@ -145,7 +145,7 @@ class CompanyControllerTest extends TestCase
     function updating_a_company()
     {
         $company = factory(Company::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->put(route('companies.update', $company), [
             'name'    => 'Skybase',
@@ -165,7 +165,7 @@ class CompanyControllerTest extends TestCase
     function updating_a_company_with_minimum_information()
     {
         $company = factory(Company::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $response = $this->put(route('companies.update', $company), [
             'name' => 'Skybase',

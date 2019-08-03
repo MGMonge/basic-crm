@@ -6,8 +6,8 @@ use App\User;
 
 trait UsersAware
 {
-    public function actingAsAdmin()
+    public function actingAsUser()
     {
-        return $this->actingAs(factory(User::class)->states('admin')->create());
+        return $this->actingAs(factory(User::class)->create());
     }
 }

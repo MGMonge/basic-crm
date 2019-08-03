@@ -13,7 +13,7 @@ class LoginTest extends FeatureTestCase
     /** @test */
     function logging_in()
     {
-        $user = factory(User::class)->states('admin')->create();
+        $user = factory(User::class)->create();
 
         $this->visitRoute('login')
              ->type($user->email, 'email')
@@ -25,7 +25,7 @@ class LoginTest extends FeatureTestCase
     /** @test */
     function redirecting_to_dashboard_when_trying_to_visit_the_login_page_as_logged_in_user()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('login')
              ->seeRouteIs('dashboard');
@@ -34,7 +34,7 @@ class LoginTest extends FeatureTestCase
     /** @test */
     function redirecting_to_intended_url_after_logging_in()
     {
-        $user = factory(User::class)->states('admin')->create();
+        $user = factory(User::class)->create();
 
         $this->visitRoute('employees.create')
              ->seeRouteIs('login')
@@ -47,7 +47,7 @@ class LoginTest extends FeatureTestCase
     /** @test */
     function logging_out()
     {
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('dashboard')
              ->press('Sign out')

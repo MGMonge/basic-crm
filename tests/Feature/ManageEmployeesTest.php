@@ -17,7 +17,7 @@ class ManageEmployeesTest extends FeatureTestCase
     {
         $company   = factory(Company::class)->create(['name' => 'Skybase']);
         $employees = factory(Employee::class, 2)->create(['company_id' => $company->id]);
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('employees.index')
              ->assertNumberOfElements(2, '.lc-employee-item')
@@ -33,7 +33,7 @@ class ManageEmployeesTest extends FeatureTestCase
     {
         config()->set('crm.employees.per-page', 3);
         factory(Employee::class, 7)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
         $this->visitRoute('employees.index')
              ->assertNumberOfElements(3, '.lc-employee-item')
              ->seeInElement('.page-item.active', 1)
@@ -53,7 +53,7 @@ class ManageEmployeesTest extends FeatureTestCase
     {
         Carbon::setTestNow('1992-01-11 11:00:00');
         $company = factory(Company::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('employees.create')
              ->type('Maximiliano', 'first_name')
@@ -81,7 +81,7 @@ class ManageEmployeesTest extends FeatureTestCase
         Carbon::setTestNow('1992-01-11 11:00:00');
         $company  = factory(Company::class)->create();
         $employee = factory(Employee::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('employees.edit', $employee)
              ->seeInField('first_name', $employee->first_name)
@@ -113,7 +113,7 @@ class ManageEmployeesTest extends FeatureTestCase
     function deleting_employee()
     {
         $employee = factory(Employee::class)->create();
-        $this->actingAsAdmin();
+        $this->actingAsUser();
 
         $this->visitRoute('employees.index')
              ->assertNumberOfElements(1, '.lc-employee-item')
