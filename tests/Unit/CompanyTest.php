@@ -40,9 +40,8 @@ class CompanyTest extends TestCase
     {
         $company = factory(Company::class)->create();
         $this->assertFalse($company->hasEmployees());
+        
         factory(Employee::class)->create(['company_id' => $company->id]);
-
-        $company->removeLogo();
 
         $this->assertTrue($company->hasEmployees());
     }
