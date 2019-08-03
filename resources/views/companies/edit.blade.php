@@ -9,6 +9,7 @@
         'method'  => 'PUT',
         'name'    => $company->name,
         'email'   => $company->email,
+        'logo'    => $company->logo,
         'website' => $company->website,
     ])
 

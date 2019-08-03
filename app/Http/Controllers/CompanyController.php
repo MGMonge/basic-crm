@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Http\Requests\SaveCompanyRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -25,6 +26,7 @@ class CompanyController extends Controller
             'name'    => $request->input('name'),
             'email'   => $request->input('email'),
             'website' => $request->input('website'),
+            'logo'    => $request->hasFile('logo') ? $request->file('logo')->store('logo') : null,
         ]);
 
         return redirect()->route('companies.index')->with('status', 'Company added successfully');
@@ -37,10 +39,13 @@ class CompanyController extends Controller
 
     public function update(SaveCompanyRequest $request, Company $company)
     {
+        $company->removeLogo();
+
         $company->update([
             'name'    => $request->input('name'),
             'email'   => $request->input('email'),
             'website' => $request->input('website'),
+            'logo'    => $request->hasFile('logo') ? $request->file('logo')->store('logo') : null,
         ]);
 
         return redirect()->route('companies.index')->with('status', 'Company updated successfully');
@@ -48,6 +53,8 @@ class CompanyController extends Controller
 
     public function destroy(Company $company)
     {
+        $company->removeLogo();
+
         $company->delete();
 
         return redirect()->route('companies.index')->with('status', 'Company deleted successfully');

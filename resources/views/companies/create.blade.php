@@ -9,6 +9,7 @@
         'method'  => 'POST',
         'name'    => null,
         'email'   => null,
+        'logo'    => null,
         'website' => null,
     ])
 

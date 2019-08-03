@@ -29,7 +29,12 @@
                                 @foreach($companies as $company)
                                     <tr class="lc-company-item">
                                         <td>{{ $company->id }}</td>
-                                        <td>{{ $company->name }}</td>
+                                        <td>
+                                            @if($company->logo)
+                                                <img width="32" height="32" class="img-circle margin-r-5" src="{{ asset($company->logo) }}" alt="">
+                                            @endif
+                                            {{ $company->name }}
+                                        </td>
                                         <td>{{ $company->email }}</td>
                                         <td>{{ $company->website }}</td>
                                         <td>

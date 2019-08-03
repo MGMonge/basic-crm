@@ -7,7 +7,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">@yield('title')</h3>
             </div>
-            <form action="{{ $url }}" method="POST" class="form-horizontal">
+            <form action="{{ $url }}" enctype="multipart/form-data" method="POST" class="form-horizontal">
                 @csrf
                 @method($method)
                 <div class="box-body">
@@ -35,7 +35,22 @@
                         </div>
                     </div>
 
-                    <div class="form-group has-feedback @error('website') has-error @enderror">
+                    <div class="form-group has-feedback @error('logo') has-error @enderror">
+                        <label for="logo" class="col-sm-2 control-label">Logo</label>
+                        <div class="col-sm-10">
+                            <input id="logo" type="file" class="form-control" placeholder="" name="logo" value="{{ old('logo', $logo) }}">
+                            @if ($logo)
+                                <a target="_blank" href="{{ asset($logo) }}">View current logo</a>
+                            @endif
+                            @error('logo')
+                            <span class="help-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group has-feedback @error('logo') has-error @enderror">
                         <label for="website" class="col-sm-2 control-label">Website</label>
                         <div class="col-sm-10">
                             <input id="website" type="website" class="form-control" name="website" value="{{ old('website', $website) }}">
