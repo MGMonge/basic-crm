@@ -17,7 +17,7 @@
             <input type="hidden" name="token" value="{{ $token }}">
 
             <div class="form-group has-feedback @error('email') has-error @enderror">
-                <input id="email" type="email" placeholder="Email" class="form-control" name="email" value="{{ old('email') }}" autofocus>
+                <input id="email" type="text" placeholder="Email" class="form-control" name="email" value="{{ old('email') }}" autofocus>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 @error('email')
                     <span class="help-block" role="alert">

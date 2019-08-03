@@ -7,7 +7,7 @@
     <div class="wrapper">
 
         <header class="main-header">
-            <a href="index2.html" class="logo">
+            <a href="/" class="logo">
                 <span class="logo-mini"><b>A</b>LT</span>
                 <span class="logo-lg"><b>Admin</b>LTE</span>
             </a>
@@ -21,21 +21,18 @@
                     <ul class="nav navbar-nav">
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="images/user.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Alexander Pierce</span>
+                                <img src="{{ asset('images/user.jpg') }}" class="user-image" alt="User Image">
+                                <span class="hidden-xs">{{ auth()->user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="user-header">
-                                    <img src="images/user.jpg" class="img-circle" alt="User Image">
+                                    <img src="{{ asset('images/user.jpg') }}" class="img-circle" alt="User Image">
                                     <p>
-                                        Alexander Pierce - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        {{ auth()->user()->name }}
+                                        <small>Member since {{ auth()->user()->created_at->format('M\. Y') }}</small>
                                     </p>
                                 </li>
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
                                     <div class="pull-right">
                                         <form action="{{ route('logout') }}" method="POST">
                                             @csrf
@@ -54,19 +51,23 @@
             <section class="sidebar">
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li class="active">
-                        <a href="#">
+                    <li class="{{ request()->is('/') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard') }}">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-th"></i> <span>Widgets</span>
+                    <li class="{{ request()->is('companies*') ? 'active' : '' }}">
+                        <a href="{{ route('companies.index') }}">
+                            <i class="fa fa-building"></i> <span>Companies</span>
+                        </a>
+                    </li>
+                    <li class="{{ request()->is('employees*') ? 'active' : '' }}">
+                        <a href="{{ route('employees.index') }}">
+                            <i class="fa fa-users"></i> <span>Employees</span>
                         </a>
                     </li>
                 </ul>
             </section>
-            <!-- /.sidebar -->
         </aside>
 
         <div class="content-wrapper">
@@ -81,7 +82,6 @@
                 @yield('content')
 
             </section>
-            <!-- /.content -->
         </div>
 
         <footer class="main-footer">
